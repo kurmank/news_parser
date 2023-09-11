@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    container_name: django-app-container
+    command: python manage.py runserver 
+              
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    env_file:
+      - .env
+    # Перезапускаем сервис в случае падения 
+    restart: on-failure
+
+  db:
+    image: postgres:latest
+    container_name: postgres-container
+    environment:
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: qwerty12345
+      POSTGRES_DB: news_db
+      POSTGRES_HOST: localhost
+    ports:
+      - "5432:5432"

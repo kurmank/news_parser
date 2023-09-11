@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate JSON</title>
+</head>
+<body>
+    <form id="generate-json-form" method="get">
+        {% csrf_token %}
+        <h2>Select News:</h2>
+        <ul>
+            {% for news in news_list %}
+                <li>
+                    <input type="checkbox" name="news_ids[]" value="{{ news.id }}">
+                    {{ news.post_title }}
+                </li>
+            {% endfor %}
+        </ul>
+        <button type="submit">Generate JSON</button>
+    </form>
+
+    <div id="json-output">
+        <!-- JSON data will be displayed here -->
+    </div>
+</body>
+</html>
